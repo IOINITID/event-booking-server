@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const { graphqlHTTP } = require("express-graphql");
 const { buildSchema } = require("graphql");
+const mongoose = require("mongoose");
 
 const app = express();
 const PORT = 3000;
@@ -62,6 +63,15 @@ app.use(
   })
 );
 
-app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}...`);
-});
+mongoose
+  .connect(
+    `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.qwu0m.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
+  )
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server started on port ${PORT}...`);
+    });
+  })
+  .catch((error) => {
+    console.log(error);
+  });
