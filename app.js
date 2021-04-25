@@ -9,8 +9,6 @@ const Event = require("./models/event");
 const app = express();
 const PORT = 3000;
 
-const events = [];
-
 app.use(bodyParser.json());
 
 app.use(
