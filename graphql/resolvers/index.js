@@ -17,12 +17,7 @@ const events = async (eventIds) => {
   try {
     const events = await Event.find({ _id: { $in: eventIds } });
     return events.map((event) => {
-      return {
-        ...event._doc,
-        _id: event.id,
-        date: new Date(event._doc.date).toISOString(),
-        creator: user.bind(this, event.creator),
-      };
+      return transformEvent(event);
     });
   } catch (error) {
     throw error;
@@ -44,12 +39,8 @@ const user = async (userId) => {
 
 const singleEvent = async (eventId) => {
   try {
-    const event = await Event.findOne(eventId);
-    return {
-      ...event._doc,
-      _id: event.id,
-      creator: user.bind(this, event.creator),
-    };
+    const event = await Event.findById(eventId);
+    return transformEvent(event);
   } catch (error) {
     throw error;
   }
@@ -61,12 +52,7 @@ module.exports = {
       const events = await Event.find();
 
       return events.map((event) => {
-        return {
-          ...event._doc,
-          _id: event.id,
-          date: new Date(event._doc.date).toISOString(),
-          creator: user.bind(this, event._doc.creator),
-        };
+        return transformEvent(event);
       });
     } catch (error) {
       throw error;
@@ -95,7 +81,7 @@ module.exports = {
       description: args.eventInput.description,
       price: args.eventInput.price,
       date: new Date(args.eventInput.date),
-      creator: "6085b3525bf6282b196513e8",
+      creator: "6089b8279b670247319c205f",
     });
 
     let createdEvent;
@@ -103,14 +89,9 @@ module.exports = {
     try {
       const result = await event.save();
 
-      createdEvent = {
-        ...result._doc,
-        _id: result._doc._id.toString(),
-        date: new Date(result._doc.date).toISOString(),
-        creator: user.bind(this, result._doc.creator),
-      };
+      createdEvent = transformEvent(result);
 
-      const creator = await User.findById("6085b3525bf6282b196513e8");
+      const creator = await User.findById("6089b8279b670247319c205f");
 
       if (!creator) {
         throw new Error("User not found.");
@@ -151,7 +132,7 @@ module.exports = {
   bookEvent: async (args) => {
     const fetchedEvent = await Event.findOne({ _id: args.eventId });
     const booking = new Booking({
-      user: "6085b3525bf6282b196513e8",
+      user: "6089b8279b670247319c205f",
       event: fetchedEvent,
     });
     const result = await booking.save();
@@ -168,11 +149,7 @@ module.exports = {
     try {
       const booking = await Booking.findById(args.bookingId).populate("event");
 
-      const event = {
-        ...booking.event._doc,
-        _id: booking.event.id,
-        creator: user.bind(this, booking.event._doc.creator),
-      };
+      const event = transformEvent(booking.event);
 
       await Booking.deleteOne({ _id: args.bookingId });
 
