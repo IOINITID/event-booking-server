@@ -1,1 +1,1 @@
-Название: **Event Booking**
+Название: **Event Booking server**
