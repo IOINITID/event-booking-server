@@ -1,5 +1,13 @@
-# node_modules
-node_modules
+# Файлы и папки операционной системы
+.DS_Store
+Thumbs.db
 
-# dependencies
+# Файлы редактора
+.idea
+*.sublime*
+.vscode
+
+# Вспомогательные файлы
+*.log*
+node_modules/
 package-lock.json
