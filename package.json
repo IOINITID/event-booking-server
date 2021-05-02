@@ -2,7 +2,8 @@
   "name": "event-booking-server",
   "version": "1.0.0",
   "description": "Event Booking server application.",
-  "main": "app.js",
+  "main": "./app.js",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js"
