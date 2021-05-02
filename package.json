@@ -1,22 +1,22 @@
 {
-  "name": "event-booking",
+  "name": "event-booking-server",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Event Booking server application.",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/IOINITID/event-booking.git"
+    "url": "git+https://github.com/IOINITID/event-booking-server.git"
   },
   "author": "Igor Orishchenko <ioinitid@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/IOINITID/event-booking/issues"
+    "url": "https://github.com/IOINITID/event-booking-server/issues"
   },
-  "homepage": "https://github.com/IOINITID/event-booking#readme",
+  "homepage": "https://github.com/IOINITID/event-booking-server#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
