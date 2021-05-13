@@ -2,11 +2,11 @@ const express = require("express");
 const { ApolloServer } = require("apollo-server-express");
 const mongoose = require("mongoose");
 
+const PORT = process.env.PORT || 8080;
+
 const typeDefs = require("./graphql/schema/index");
 const resolvers = require("./graphql/resolvers/index");
 const isAuth = require("./middleware/is-auth");
-
-const PORT = process.env.PORT || 8080;
 
 const startApolloServer = async () => {
   const app = express();
