@@ -3,29 +3,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../../models/user");
 
 module.exports = {
-  createUser: async (args) => {
-    try {
-      const existingUser = await User.findOne({ email: args.userInput.email });
-
-      if (existingUser) {
-        throw new Error("User exists already.");
-      }
-
-      const hashedPassword = await bcrypt.hash(args.userInput.password, 12);
-
-      const user = new User({
-        email: args.userInput.email,
-        password: hashedPassword,
-      });
-
-      const result = await user.save();
-
-      return { ...result._doc, _id: result.id, password: null };
-    } catch (error) {
-      throw error;
-    }
-  },
-  login: async ({ email, password }) => {
+  login: async (parent, { email, password }, context, info) => {
     try {
       const user = await User.findOne({ email: email });
 
@@ -46,6 +24,30 @@ module.exports = {
       );
 
       return { userId: user.id, token: token, tokenExpiration: 1 };
+    } catch (error) {
+      throw error;
+    }
+  },
+  createUser: async (parent, args, context, info) => {
+    try {
+      const existingUser = await User.findOne({
+        email: args.userInput.email,
+      });
+
+      if (existingUser) {
+        throw new Error("User exists already.");
+      }
+
+      const hashedPassword = await bcrypt.hash(args.userInput.password, 12);
+
+      const user = new User({
+        email: args.userInput.email,
+        password: hashedPassword,
+      });
+
+      const result = await user.save();
+
+      return { ...result._doc, _id: result.id, password: null };
     } catch (error) {
       throw error;
     }
