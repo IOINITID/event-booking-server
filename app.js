@@ -17,6 +17,8 @@ const startApolloServer = async () => {
     context: ({ req }) => ({
       req,
     }),
+    playground: true,
+    introspection: true,
   });
 
   await server.start();
