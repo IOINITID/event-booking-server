@@ -14,8 +14,9 @@ const startApolloServer = async () => {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: ({ req }) => ({
+    context: ({ req, res }) => ({
       req,
+      res,
     }),
     playground: true,
     introspection: true,
