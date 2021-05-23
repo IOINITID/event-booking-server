@@ -24,6 +24,7 @@ module.exports = {
       description: args.eventInput.description,
       price: args.eventInput.price,
       date: new Date(args.eventInput.date),
+      location: args.eventInput.location,
       creator: req.userId,
     });
 
