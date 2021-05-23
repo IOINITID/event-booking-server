@@ -16,6 +16,7 @@ const typeDefs = gql`
     price: Float!
     date: String!
     location: String
+    image: String
     creator: User!
   }
 
@@ -38,6 +39,7 @@ const typeDefs = gql`
     price: Float!
     date: String!
     location: String!
+    image: String!
   }
 
   input UserInput {

@@ -1,6 +1,7 @@
 const express = require("express");
 const { ApolloServer } = require("apollo-server-express");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 
 const PORT = process.env.PORT || 8080;
 
@@ -38,6 +39,8 @@ const startApolloServer = async () => {
 
     next();
   });
+
+  app.use(bodyParser({ limit: "10mb" }));
 
   app.use(isAuth);
 
