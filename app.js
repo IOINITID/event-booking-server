@@ -50,7 +50,7 @@ const startApolloServer = async () => {
   server.applyMiddleware({
     app: app,
     cors: {
-      origin: "https://ioinitid.github.io/event-booking/",
+      origin: "*",
       credentials: true,
     },
   });
