@@ -41,7 +41,7 @@ const startApolloServer = async () => {
   //   next();
   // });
 
-  // app.use(cors());
+  app.use(cors());
 
   app.use(isAuth);
 
