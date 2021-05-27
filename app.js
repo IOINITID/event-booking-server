@@ -1,6 +1,7 @@
 const express = require("express");
 const { ApolloServer } = require("apollo-server-express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 const PORT = process.env.PORT || 8080;
 
@@ -24,20 +25,22 @@ const startApolloServer = async () => {
 
   await server.start();
 
-  app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
-    res.setHeader(
-      "Access-Control-Allow-Headers",
-      "Content-Type, Authorization"
-    );
+  // app.use((req, res, next) => {
+  //   res.setHeader("Access-Control-Allow-Origin", "*");
+  //   res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
+  //   res.setHeader(
+  //     "Access-Control-Allow-Headers",
+  //     "Content-Type, Authorization"
+  //   );
 
-    if (req.method === "OPTIONS") {
-      return res.sendStatus(200);
-    }
+  //   if (req.method === "OPTIONS") {
+  //     return res.sendStatus(200);
+  //   }
 
-    next();
-  });
+  //   next();
+  // });
+
+  app.use(cors());
 
   app.use(isAuth);
 
