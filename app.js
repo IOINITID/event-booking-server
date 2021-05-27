@@ -41,13 +41,19 @@ const startApolloServer = async () => {
   //   next();
   // });
 
-  app.use(cors());
+  // app.use(cors());
 
   app.use(isAuth);
 
   app.use(express.static("public"));
 
-  server.applyMiddleware({ app: app, cors: false });
+  server.applyMiddleware({
+    app: app,
+    cors: {
+      origin: "https://ioinitid.github.io/event-booking/",
+      credentials: true,
+    },
+  });
 
   mongoose
     .connect(
