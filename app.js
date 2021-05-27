@@ -47,7 +47,7 @@ const startApolloServer = async () => {
 
   app.use(express.static("public"));
 
-  server.applyMiddleware({ app: app });
+  server.applyMiddleware({ app: app, cors: false });
 
   mongoose
     .connect(
