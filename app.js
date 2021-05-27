@@ -41,19 +41,13 @@ const startApolloServer = async () => {
   //   next();
   // });
 
-  // app.use(cors());
+  app.use(cors());
 
   app.use(isAuth);
 
   app.use(express.static("public"));
 
-  server.applyMiddleware({
-    app: app,
-    cors: {
-      origin: "https://ioinitid.github.io",
-      credentials: true,
-    },
-  });
+  server.applyMiddleware({ app: app });
 
   mongoose
     .connect(
