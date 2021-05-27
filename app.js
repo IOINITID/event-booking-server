@@ -21,6 +21,7 @@ const startApolloServer = async () => {
     }),
     playground: true,
     introspection: true,
+    cors: false,
   });
 
   await server.start();
@@ -40,13 +41,13 @@ const startApolloServer = async () => {
   //   next();
   // });
 
-  app.use(cors());
+  // app.use(cors());
 
   app.use(isAuth);
 
   app.use(express.static("public"));
 
-  server.applyMiddleware({ app: app });
+  server.applyMiddleware({ app: app, cors: false });
 
   mongoose
     .connect(
