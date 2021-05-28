@@ -41,20 +41,12 @@ const startApolloServer = async () => {
   // });
 
   // app.use(cors());
-  // app.options("*", cors());
-
-  const corsOptions = {
-    origin: true,
-    credentials: true,
-  };
-
-  app.use(cors(corsOptions));
 
   app.use(isAuth);
 
   app.use(express.static("public"));
 
-  server.applyMiddleware({ app: app, cors: corsOptions });
+  server.applyMiddleware({ app: app });
 
   mongoose
     .connect(
