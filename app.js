@@ -44,7 +44,7 @@ const startApolloServer = async () => {
   // app.options("*", cors());
 
   const corsOptions = {
-    origin: "*",
+    origin: true,
     credentials: true,
   };
 
