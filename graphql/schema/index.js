@@ -39,7 +39,7 @@ const typeDefs = gql`
     price: Float!
     date: String!
     location: String!
-    image: Upload!
+    image: String!
   }
 
   input UserInput {
