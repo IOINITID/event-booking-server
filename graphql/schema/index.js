@@ -31,6 +31,7 @@ const typeDefs = gql`
     userId: ID!
     token: String!
     tokenExpiration: Int!
+    message: String!
   }
 
   input EventInput {

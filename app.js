@@ -2,6 +2,7 @@ const express = require("express");
 const { ApolloServer } = require("apollo-server-express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+require("dotenv").config();
 
 const PORT = process.env.PORT || 8080;
 

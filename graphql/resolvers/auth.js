@@ -3,18 +3,18 @@ const jwt = require("jsonwebtoken");
 const User = require("../../models/user");
 
 module.exports = {
-  login: async (parent, { email, password }, context, info) => {
+  login: async (parent, { email, password }, { req, res }, info) => {
     try {
       const user = await User.findOne({ email: email });
 
       if (!user) {
-        throw new Error("User does not exist!");
+        throw new Error("Пользователь с такой почтой не найден.");
       }
 
       const isEqual = await bcrypt.compare(password, user.password);
 
       if (!isEqual) {
-        throw new Error("Password is incorrect!");
+        throw new Error("Пароль не верный.");
       }
 
       const token = jwt.sign(
@@ -23,7 +23,12 @@ module.exports = {
         { expiresIn: "1h" }
       );
 
-      return { userId: user.id, token: token, tokenExpiration: 1 };
+      return {
+        userId: user.id,
+        token: token,
+        tokenExpiration: 1,
+        message: "Вход успешно выполнен.",
+      };
     } catch (error) {
       throw error;
     }
