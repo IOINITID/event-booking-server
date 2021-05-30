@@ -1,5 +1,5 @@
 const { login, createUser } = require("./auth");
-const { events, createEvent } = require("./events");
+const { events, createEvent, deleteEvent } = require("./events");
 const { bookings, bookEvent, cancelBooking } = require("./booking");
 
 const resolvers = {
@@ -11,6 +11,7 @@ const resolvers = {
   Mutation: {
     createUser,
     createEvent,
+    deleteEvent,
     bookEvent,
     cancelBooking,
   },

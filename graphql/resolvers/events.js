@@ -25,7 +25,7 @@ module.exports = {
   },
   createEvent: async (parent, args, { req }, info) => {
     if (!req.isAuth) {
-      throw new Error("Unauthenticated!");
+      throw new Error("Необходимо авторизоваться.");
     }
 
     // const folder = "public/images";
@@ -69,7 +69,7 @@ module.exports = {
       const creator = await User.findById(req.userId);
 
       if (!creator) {
-        throw new Error("User not found.");
+        throw new Error("Пользователь не найден.");
       }
 
       creator.createdEvents.push(event);
@@ -79,6 +79,19 @@ module.exports = {
       return createdEvent;
     } catch (error) {
       console.log(error);
+      throw error;
+    }
+  },
+  deleteEvent: async (parent, args, { req, res }, info) => {
+    if (!req.isAuth) {
+      throw new Error("Необходимо авторизоваться.");
+    }
+
+    try {
+      const eventToDelete = await Event.findByIdAndDelete(args.eventId);
+
+      return eventToDelete;
+    } catch (error) {
       throw error;
     }
   },
