@@ -46,7 +46,13 @@ module.exports = {
 
     const uploadedResponse = await cloudinary.uploader.upload(
       args.eventInput.image,
-      { folder: "event-booking" }
+      {
+        folder: "event-booking",
+        eager: {
+          quality: "25",
+          fetch_format: "webp",
+        },
+      }
     );
 
     const event = new Event({
@@ -55,7 +61,7 @@ module.exports = {
       price: args.eventInput.price,
       date: new Date(args.eventInput.date),
       location: args.eventInput.location,
-      image: uploadedResponse.secure_url,
+      image: uploadedResponse.eager[0].secure_url,
       creator: req.userId,
     });
 
