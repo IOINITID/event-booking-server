@@ -5,7 +5,7 @@ const { transformBooking, transformEvent } = require("./merge");
 module.exports = {
   bookings: async (parent, args, { req }, info) => {
     if (!req.isAuth) {
-      throw new Error("Unauthenticated!");
+      throw new Error("Необходима авторизация.");
     }
     try {
       const bookings = await Booking.find({ user: req.userId });
@@ -18,7 +18,7 @@ module.exports = {
   },
   bookEvent: async (parent, args, { req }, info) => {
     if (!req.isAuth) {
-      throw new Error("Unauthenticated!");
+      throw new Error("Необходима авторизация.");
     }
 
     const fetchedEvent = await Event.findOne({ _id: args.eventId });
@@ -31,7 +31,7 @@ module.exports = {
   },
   cancelBooking: async (parent, args, { req }, info) => {
     if (!req.isAuth) {
-      throw new Error("Unauthenticated!");
+      throw new Error("Необходима авторизация.");
     }
 
     try {

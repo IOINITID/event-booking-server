@@ -40,7 +40,7 @@ module.exports = {
       });
 
       if (existingUser) {
-        throw new Error("User exists already.");
+        throw new Error("Пользователь с такой почтой уже есть.");
       }
 
       const hashedPassword = await bcrypt.hash(args.userInput.password, 12);

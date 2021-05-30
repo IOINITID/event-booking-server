@@ -1,9 +1,9 @@
 const Event = require("../../models/event");
 const User = require("../../models/user");
 const { transformEvent } = require("./merge");
-const path = require("path");
-const fs = require("fs");
-const { nanoid } = require("nanoid");
+// const path = require("path");
+// const fs = require("fs");
+// const { nanoid } = require("nanoid");
 var cloudinary = require("cloudinary").v2;
 
 cloudinary.config({
