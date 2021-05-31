@@ -49,8 +49,8 @@ module.exports = {
       {
         folder: "event-booking",
         eager: {
-          quality: "25",
-          fetch_format: "webp",
+          quality: "75",
+          fetch_format: "jpg",
         },
       }
     );
