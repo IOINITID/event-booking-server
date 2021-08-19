@@ -2,14 +2,12 @@
   "name": "event-booking-server",
   "version": "1.0.0",
   "description": "Event Booking server application.",
-  "main": "./app.js",
+  "main": "./index.js",
   "type": "module",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
-    "develop": "nodemon app.js",
-    "preinstall": "npx npm-force-resolutions"
+    "develop": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -36,9 +34,5 @@
   "devDependencies": {
     "dotenv": "^10.0.0",
     "nodemon": "^2.0.7"
-  },
-  "resolutions": {
-    "fs-capacitor": "^6.2.0",
-    "graphql-upload": "^11.0.0"
   }
 }
