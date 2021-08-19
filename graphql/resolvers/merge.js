@@ -1,7 +1,7 @@
-const Event = require("../../models/event");
-const User = require("../../models/user");
-const { dateToString } = require("../../helpers/date");
-const DataLoader = require("dataloader");
+import Event from "../../models/event.js";
+import User from "../../models/user.js";
+import { dateToString } from "../../helpers/date.js";
+import DataLoader from "dataloader";
 
 const eventLoader = new DataLoader((eventIds) => {
   return events(eventIds);
@@ -68,5 +68,4 @@ const transformBooking = (booking) => {
   };
 };
 
-exports.transformEvent = transformEvent;
-exports.transformBooking = transformBooking;
+export { transformEvent, transformBooking };

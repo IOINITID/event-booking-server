@@ -1,6 +1,6 @@
-const { login, createUser } = require("./auth");
-const { events, createEvent, deleteEvent } = require("./events");
-const { bookings, bookEvent, cancelBooking } = require("./booking");
+import { login, createUser } from "./auth.js";
+import { events, createEvent, deleteEvent } from "./events.js";
+import { bookings, bookEvent, cancelBooking } from "./booking.js";
 
 const resolvers = {
   Query: {
@@ -17,4 +17,4 @@ const resolvers = {
   },
 };
 
-module.exports = resolvers;
+export { resolvers };

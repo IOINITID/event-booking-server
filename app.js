@@ -1,17 +1,18 @@
-const express = require("express");
-const { ApolloServer } = require("apollo-server-express");
-const mongoose = require("mongoose");
-const cors = require("cors");
+import express from "express";
+import { ApolloServer } from "apollo-server-express";
+import mongoose from "mongoose";
+import cors from "cors";
+import dotenv from "dotenv";
 
 if (process.env.MODE !== "production") {
-  require("dotenv").config();
+  dotenv.config();
 }
 
 const PORT = process.env.PORT || 8080;
 
-const typeDefs = require("./graphql/schema/index");
-const resolvers = require("./graphql/resolvers/index");
-const isAuth = require("./middleware/is-auth");
+import { typeDefs } from "./graphql/schema/index.js";
+import { resolvers } from "./graphql/resolvers/index.js";
+import { isAuth } from "./middleware/is-auth.js";
 
 const startApolloServer = async () => {
   const app = express();

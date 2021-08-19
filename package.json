@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Event Booking server application.",
   "main": "./app.js",
+  "type": "module",
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
