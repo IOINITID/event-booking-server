@@ -20,10 +20,7 @@ const startApolloServer = async () => {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: ({ req, res }) => ({
-      req,
-      res,
-    }),
+    context: ({ req, res }) => ({ req, res }),
     playground: true,
     introspection: true,
   });
@@ -40,15 +37,12 @@ const startApolloServer = async () => {
 
   app.use(express.static("public"));
 
-  server.applyMiddleware({ app: app });
+  server.applyMiddleware({ app });
 
   mongoose
     .connect(
       `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.qwu0m.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`,
-      {
-        useUnifiedTopology: true,
-        useNewUrlParser: true,
-      }
+      { useUnifiedTopology: true, useNewUrlParser: true }
     )
     .then(() => {
       app.listen(PORT, () => {
