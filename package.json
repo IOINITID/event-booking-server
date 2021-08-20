@@ -6,8 +6,8 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "start": "node app.js",
-    "develop": "nodemon app.js"
+    "start": "node index.js",
+    "develop": "nodemon index.js"
   },
   "repository": {
     "type": "git",
