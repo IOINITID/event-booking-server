@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 
-if (process.env.MODE !== "production") {
+if (process.env.MODE === "development") {
   dotenv.config();
 }
 
