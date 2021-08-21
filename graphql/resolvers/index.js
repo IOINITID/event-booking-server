@@ -1,4 +1,4 @@
-import { authorization, registration } from "./authorization.js";
+import { authorization, registration } from "./user.js";
 import { events, createEvent, deleteEvent } from "./events.js";
 import { bookings, bookEvent, cancelBooking } from "./booking.js";
 
