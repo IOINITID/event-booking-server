@@ -42,13 +42,13 @@ const typeDefs = gql`
   }
 
   type Query {
-    login(email: String!, password: String!): Authorization!
+    authorization(email: String!, password: String!): Authorization!
     events: [Event!]!
     bookings: [Booking!]!
   }
 
   type Mutation {
-    createUser(email: String!, password: String!): Authorization!
+    registration(email: String!, password: String!): Authorization!
     createEvent(eventInput: EventInput): Event
     deleteEvent(eventId: ID!): Event!
     bookEvent(eventId: ID!): Booking!

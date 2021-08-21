@@ -1,15 +1,15 @@
-import { login, createUser } from "./auth.js";
+import { authorization, registration } from "./authorization.js";
 import { events, createEvent, deleteEvent } from "./events.js";
 import { bookings, bookEvent, cancelBooking } from "./booking.js";
 
 const resolvers = {
   Query: {
-    login,
+    authorization,
     events,
     bookings,
   },
   Mutation: {
-    createUser,
+    registration,
     createEvent,
     deleteEvent,
     bookEvent,

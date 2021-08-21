@@ -2,10 +2,10 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../../models/user.js";
 
-export const login = async (
+export const authorization = async (
   parent,
   { email, password },
-  { req, res },
+  context,
   info
 ) => {
   try {
@@ -33,7 +33,7 @@ export const login = async (
   }
 };
 
-export const createUser = async (
+export const registration = async (
   parent,
   { email, password },
   context,
