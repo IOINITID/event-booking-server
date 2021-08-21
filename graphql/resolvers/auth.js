@@ -9,7 +9,7 @@ export const login = async (
   info
 ) => {
   try {
-    const user = await User.findOne({ email: email });
+    const user = await User.findOne({ email });
 
     if (!user) {
       throw new Error("Пользователь с такой почтой не найден.");
@@ -22,17 +22,12 @@ export const login = async (
     }
 
     const token = jwt.sign(
-      { userId: user.id, email: user.email },
+      { id: user.id, email: user.email },
       "somesupersecretkey",
       { expiresIn: "1h" }
     );
 
-    return {
-      userId: user.id,
-      token: token,
-      tokenExpiration: 1,
-      message: "Вход успешно выполнен.",
-    };
+    return { id: user.id, token };
   } catch (error) {
     throw error;
   }

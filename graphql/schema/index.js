@@ -27,11 +27,9 @@ const typeDefs = gql`
     createdEvents: [Event!]
   }
 
-  type AuthData {
-    userId: ID!
+  type Authorization {
+    id: ID!
     token: String!
-    tokenExpiration: Int!
-    message: String!
   }
 
   input EventInput {
@@ -49,15 +47,15 @@ const typeDefs = gql`
   }
 
   type Query {
+    login(email: String!, password: String!): Authorization!
     events: [Event!]!
     bookings: [Booking!]!
-    login(email: String!, password: String!): AuthData!
   }
 
   type Mutation {
+    createUser(userInput: UserInput): User
     createEvent(eventInput: EventInput): Event
     deleteEvent(eventId: ID!): Event!
-    createUser(userInput: UserInput): User
     bookEvent(eventId: ID!): Booking!
     cancelBooking(bookingId: ID!): Event!
   }
