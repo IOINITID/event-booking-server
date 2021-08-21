@@ -41,11 +41,6 @@ const typeDefs = gql`
     image: String!
   }
 
-  input UserInput {
-    email: String!
-    password: String!
-  }
-
   type Query {
     login(email: String!, password: String!): Authorization!
     events: [Event!]!
@@ -53,7 +48,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    createUser(userInput: UserInput): User
+    createUser(email: String!, password: String!): Authorization!
     createEvent(eventInput: EventInput): Event
     deleteEvent(eventId: ID!): Event!
     bookEvent(eventId: ID!): Booking!

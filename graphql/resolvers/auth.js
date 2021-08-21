@@ -18,7 +18,7 @@ export const login = async (
     const isEqual = await bcrypt.compare(password, user.password);
 
     if (!isEqual) {
-      throw new Error("Пароль не верный.");
+      throw new Error("Пароль неверный.");
     }
 
     const token = jwt.sign(
@@ -33,26 +33,32 @@ export const login = async (
   }
 };
 
-export const createUser = async (parent, args, context, info) => {
+export const createUser = async (
+  parent,
+  { email, password },
+  context,
+  info
+) => {
   try {
-    const existingUser = await User.findOne({
-      email: args.userInput.email,
-    });
+    const existingUser = await User.findOne({ email });
 
     if (existingUser) {
       throw new Error("Пользователь с такой почтой уже есть.");
     }
 
-    const hashedPassword = await bcrypt.hash(args.userInput.password, 12);
+    const hashedPassword = await bcrypt.hash(password, 12);
 
-    const user = new User({
-      email: args.userInput.email,
-      password: hashedPassword,
-    });
+    const user = new User({ email, password: hashedPassword });
 
-    const result = await user.save();
+    await user.save();
 
-    return { ...result._doc, _id: result.id, password: null };
+    const token = jwt.sign(
+      { id: user.id, email: user.email },
+      "somesupersecretkey",
+      { expiresIn: "1h" }
+    );
+
+    return { id: user.id, token };
   } catch (error) {
     throw error;
   }
