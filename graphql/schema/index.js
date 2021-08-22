@@ -2,7 +2,7 @@ import { gql } from "apollo-server-express";
 
 const typeDefs = gql`
   type Booking {
-    _id: ID!
+    id: ID!
     event: Event!
     user: User!
     createdAt: String!
@@ -10,20 +10,18 @@ const typeDefs = gql`
   }
 
   type Event {
-    _id: ID!
+    id: ID!
     title: String!
     description: String!
     price: Float!
     date: String!
     location: String
     image: String
-    creator: User!
+    creator: ID!
   }
 
   type User {
-    _id: ID!
-    email: String!
-    password: String
+    id: ID!
     createdEvents: [Event!]
   }
 
@@ -32,25 +30,27 @@ const typeDefs = gql`
     token: String!
   }
 
-  input EventInput {
-    title: String!
-    description: String!
-    price: Float!
-    date: String!
-    location: String!
-    image: String!
-  }
-
   type Query {
     authorization(email: String!, password: String!): Authorization!
-    events: [Event!]!
-    bookings: [Booking!]!
+    events: [Event]!
+    bookings: [Booking]!
+  }
+
+  type DeletedEvent {
+    id: ID!
   }
 
   type Mutation {
     registration(email: String!, password: String!): Authorization!
-    createEvent(eventInput: EventInput): Event
-    deleteEvent(eventId: ID!): Event!
+    createEvent(
+      title: String!
+      description: String!
+      price: Float!
+      date: String!
+      location: String!
+      image: String!
+    ): Event!
+    deleteEvent(eventId: ID!): DeletedEvent!
     bookEvent(eventId: ID!): Booking!
     cancelBooking(bookingId: ID!): Event!
   }

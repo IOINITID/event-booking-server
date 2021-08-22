@@ -1,6 +1,4 @@
 import Event from "../../models/event.js";
-import User from "../../models/user.js";
-import { transformEvent } from "./merge.js";
 import { v2 as cloudinary } from "cloudinary";
 
 cloudinary.config({
@@ -9,76 +7,67 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-export const events = async (parent, args, { req, res }, info) => {
+export const events = async (parent, args, context, info) => {
   try {
     const events = await Event.find().sort({ createdAt: -1 });
-    return events.map((event) => {
-      return transformEvent(event);
-    });
+    return events;
   } catch (error) {
     throw error;
   }
 };
 
-export const createEvent = async (parent, args, { req }, info) => {
+export const createEvent = async (
+  parent,
+  { title, description, price, date, location, image },
+  { req },
+  info
+) => {
   if (!req.isAuth) {
     throw new Error("Необходимо авторизоваться.");
   }
 
-  const uploadedResponse = await cloudinary.uploader.upload(
-    args.eventInput.image,
-    {
+  try {
+    const uploadedResponse = await cloudinary.uploader.upload(image, {
       folder: "event-booking",
-      eager: {
-        quality: "75",
-        fetch_format: "jpg",
-      },
-    }
-  );
+      eager: { quality: "75", fetch_format: "jpg" },
+    });
 
-  const event = new Event({
-    title: args.eventInput.title,
-    description: args.eventInput.description,
-    price: args.eventInput.price,
-    date: new Date(args.eventInput.date),
-    location: args.eventInput.location,
-    image: uploadedResponse.eager[0].secure_url,
-    creator: req.userId,
-  });
+    const event = new Event({
+      title,
+      description,
+      price,
+      date,
+      location,
+      image: uploadedResponse.eager[0].secure_url,
+      creator: req.userId,
+    });
 
-  let createdEvent;
+    await event.save();
 
-  try {
-    const result = await event.save();
-
-    createdEvent = transformEvent(result);
-
-    const creator = await User.findById(req.userId);
-
-    if (!creator) {
-      throw new Error("Пользователь не найден.");
-    }
-
-    creator.createdEvents.push(event);
-
-    await creator.save();
-
-    return createdEvent;
+    return {
+      id: event._id,
+      title: event.title,
+      description: event.description,
+      price: event.price,
+      date: new Date(event.date).toISOString(),
+      location: event.location,
+      image: event.image,
+      creator: event.creator,
+    };
   } catch (error) {
-    console.log(error);
     throw error;
   }
 };
 
-export const deleteEvent = async (parent, args, { req, res }, info) => {
+export const deleteEvent = async (parent, { eventId }, { req }, info) => {
   if (!req.isAuth) {
     throw new Error("Необходимо авторизоваться.");
   }
 
   try {
-    const eventToDelete = await Event.findByIdAndDelete(args.eventId);
+    const eventToDelete = await Event.findByIdAndDelete(eventId);
 
-    return eventToDelete;
+    return { id: eventToDelete._id };
   } catch (error) {
     throw error;
   }
