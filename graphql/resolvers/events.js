@@ -10,7 +10,17 @@ cloudinary.config({
 export const events = async (parent, args, context, info) => {
   try {
     const events = await Event.find().sort({ createdAt: -1 });
-    return events;
+
+    return events.map((event) => ({
+      id: event._id,
+      title: event.title,
+      description: event.description,
+      price: event.price,
+      date: new Date(event.date).toISOString(),
+      location: event.location,
+      image: event.image,
+      creator: event.creator,
+    }));
   } catch (error) {
     throw error;
   }
