@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../../models/user.js";
+import Event from "../../models/event.js";
 
 export const authorization = async (
   parent,
@@ -59,6 +60,31 @@ export const registration = async (
     );
 
     return { id: user.id, token };
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const userEvents = async (parent, args, { req }, info) => {
+  if (!req.isAuth) {
+    throw new Error("Необходимо авторизоваться.");
+  }
+
+  try {
+    const events = await Event.find({ creator: req.userId }).sort({
+      createdAt: -1,
+    });
+
+    return events.map((event) => ({
+      id: event._id,
+      title: event.title,
+      description: event.description,
+      price: event.price,
+      date: new Date(event.date).toISOString(),
+      location: event.location,
+      image: event.image,
+      creator: event.creator,
+    }));
   } catch (error) {
     throw error;
   }

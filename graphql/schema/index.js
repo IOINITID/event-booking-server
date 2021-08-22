@@ -33,6 +33,7 @@ const typeDefs = gql`
   type Query {
     authorization(email: String!, password: String!): Authorization!
     events: [Event]!
+    userEvents: [Event]!
     bookings: [Booking]!
   }
 
