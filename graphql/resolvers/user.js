@@ -2,6 +2,8 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../../models/user.js";
 import Event from "../../models/event.js";
+import Booking from "../../models/booking.js";
+import { dateToString } from "../../helpers/index.js";
 
 export const authorization = async (
   parent,
@@ -80,11 +82,44 @@ export const userEvents = async (parent, args, { req }, info) => {
       title: event.title,
       description: event.description,
       price: event.price,
-      date: new Date(event.date).toISOString(),
+      date: dateToString(event.date),
       location: event.location,
       image: event.image,
       creator: event.creator,
     }));
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const userBookings = async (parent, args, { req }, info) => {
+  if (!req.isAuth) {
+    throw new Error("Необходимо авторизоваться.");
+  }
+
+  try {
+    const bookings = await Booking.find({ user: req.userId }).sort({
+      createdAt: -1,
+    });
+
+    return bookings.map(async (booking) => {
+      const event = await Event.findOne({ _id: booking.event });
+
+      return {
+        id: booking._id,
+        event: {
+          id: event._id,
+          title: event.title,
+          description: event.description,
+          price: event.price,
+          date: event.date,
+          location: event.location,
+          image: event.image,
+          creator: event.creator,
+        },
+        user: booking.user,
+      };
+    });
   } catch (error) {
     throw error;
   }

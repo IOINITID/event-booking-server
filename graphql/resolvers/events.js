@@ -1,5 +1,6 @@
 import Event from "../../models/event.js";
 import { v2 as cloudinary } from "cloudinary";
+import { dateToString } from "../../helpers/index.js";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
@@ -16,7 +17,7 @@ export const events = async (parent, args, context, info) => {
       title: event.title,
       description: event.description,
       price: event.price,
-      date: new Date(event.date).toISOString(),
+      date: dateToString(event.date),
       location: event.location,
       image: event.image,
       creator: event.creator,
@@ -59,7 +60,7 @@ export const createEvent = async (
       title: event.title,
       description: event.description,
       price: event.price,
-      date: new Date(event.date).toISOString(),
+      date: dateToString(event.date),
       location: event.location,
       image: event.image,
       creator: event.creator,
