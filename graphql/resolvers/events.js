@@ -1,6 +1,9 @@
 import Event from "../../models/event.js";
 import { v2 as cloudinary } from "cloudinary";
 import { dateToString } from "../../helpers/index.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,

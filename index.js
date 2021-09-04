@@ -4,9 +4,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 
-if (process.env.MODE === "development") {
-  dotenv.config();
-}
+dotenv.config();
 
 const PORT = process.env.PORT || 8080;
 
