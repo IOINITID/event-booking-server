@@ -38,12 +38,18 @@ const typeDefs = gql`
     veryHighPriceSum: Float!
   }
 
+  type BookingsControlsCounts {
+    eventsCount: Float!
+    bookingsCount: Float!
+  }
+
   type Query {
     authorization(email: String!, password: String!): Authorization!
     events: [Event]!
     userEvents: [Event]!
     userBookings: [Booking]!
     bookingsStatistics: BookingsStatistics!
+    bookingsControlsCounts: BookingsControlsCounts!
   }
 
   type Mutation {

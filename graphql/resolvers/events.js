@@ -83,3 +83,28 @@ export const deleteEvent = async (parent, { eventId }, { req }, info) => {
     throw error;
   }
 };
+
+export const userEvents = async (parent, args, { req }, info) => {
+  if (!req.isAuth) {
+    throw new Error("Необходимо авторизоваться.");
+  }
+
+  try {
+    const events = await Event.find({ creator: req.userId }).sort({
+      createdAt: -1,
+    });
+
+    return events.map((event) => ({
+      id: event._id,
+      title: event.title,
+      description: event.description,
+      price: event.price,
+      date: dateToString(event.date),
+      location: event.location,
+      image: event.image,
+      creator: event.creator,
+    }));
+  } catch (error) {
+    throw error;
+  }
+};

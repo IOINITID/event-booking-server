@@ -46,6 +46,39 @@ export const cancelBooking = async (parent, { bookingId }, { req }, info) => {
   }
 };
 
+export const userBookings = async (parent, args, { req }, info) => {
+  if (!req.isAuth) {
+    throw new Error("Необходимо авторизоваться.");
+  }
+
+  try {
+    const bookings = await Booking.find({ user: req.userId }).sort({
+      createdAt: -1,
+    });
+
+    return bookings.map(async (booking) => {
+      const event = await Event.findOne({ _id: booking.event });
+
+      return {
+        id: booking._id,
+        event: {
+          id: event._id,
+          title: event.title,
+          description: event.description,
+          price: event.price,
+          date: event.date,
+          location: event.location,
+          image: event.image,
+          creator: event.creator,
+        },
+        user: booking.user,
+      };
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const bookingsStatistics = async (parent, args, { req }, info) => {
   if (!req.isAuth) {
     throw new Error("Необходима авторизация.");
@@ -99,4 +132,18 @@ export const bookingsStatistics = async (parent, args, { req }, info) => {
   } catch (error) {
     throw error;
   }
+};
+
+export const bookingsControlsCounts = async (parent, args, { req }, info) => {
+  if (!req.isAuth) {
+    throw new Error("Необходима авторизация.");
+  }
+
+  const eventsCount = await Event.find({ creator: req.userId });
+  const bookingsCount = await Booking.find({ user: req.userId });
+
+  return {
+    eventsCount: eventsCount.length,
+    bookingsCount: bookingsCount.length,
+  };
 };
