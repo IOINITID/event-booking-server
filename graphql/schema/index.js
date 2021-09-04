@@ -31,11 +31,19 @@ const typeDefs = gql`
     id: ID!
   }
 
+  type BookingStatistics {
+    lowPriceSum: Float!
+    mediumPriceSum: Float!
+    highPriceSum: Float!
+    veryHighPriceSum: Float!
+  }
+
   type Query {
     authorization(email: String!, password: String!): Authorization!
     events: [Event]!
     userEvents: [Event]!
     userBookings: [Booking]!
+    bookingsStatistics: BookingStatistics!
   }
 
   type Mutation {

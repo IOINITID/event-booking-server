@@ -45,3 +45,58 @@ export const cancelBooking = async (parent, { bookingId }, { req }, info) => {
     throw error;
   }
 };
+
+export const bookingsStatistics = async (parent, args, { req }, info) => {
+  if (!req.isAuth) {
+    throw new Error("Необходима авторизация.");
+  }
+
+  try {
+    const bookings = await Booking.find({ user: req.userId }).sort({
+      createdAt: -1,
+    });
+
+    const events = await Promise.all(
+      bookings.map(async (value) => {
+        const { price } = await Event.findById(value.event);
+        return price;
+      })
+    );
+
+    const lowPriceSum = events.reduce((previousValue, currentValue) => {
+      if (currentValue >= 0 && currentValue <= 3000) {
+        return previousValue + currentValue;
+      } else {
+        return previousValue;
+      }
+    }, 0);
+
+    const mediumPriceSum = events.reduce((previousValue, currentValue) => {
+      if (currentValue >= 3000 && currentValue <= 8000) {
+        return previousValue + currentValue;
+      } else {
+        return previousValue;
+      }
+    }, 0);
+
+    const highPriceSum = events.reduce((previousValue, currentValue) => {
+      if (currentValue >= 8000 && currentValue <= 10000) {
+        return previousValue + currentValue;
+      } else {
+        return previousValue;
+      }
+    }, 0);
+
+    const veryHighPriceSum = events.reduce((previousValue, currentValue) => {
+      if (currentValue >= 10000) {
+        return previousValue + currentValue;
+      } else {
+        return previousValue;
+      }
+    }, 0);
+
+    return { lowPriceSum, mediumPriceSum, highPriceSum, veryHighPriceSum };
+  } catch (error) {
+    throw error;
+  }
+};

@@ -5,7 +5,7 @@ import {
   userBookings,
 } from "./user.js";
 import { events, createEvent, deleteEvent } from "./events.js";
-import { bookEvent, cancelBooking } from "./booking.js";
+import { bookEvent, cancelBooking, bookingsStatistics } from "./booking.js";
 
 const resolvers = {
   Query: {
@@ -13,6 +13,7 @@ const resolvers = {
     events,
     userEvents,
     userBookings,
+    bookingsStatistics,
   },
   Mutation: {
     registration,
