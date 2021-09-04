@@ -64,7 +64,7 @@ export const bookingsStatistics = async (parent, args, { req }, info) => {
     );
 
     const lowPriceSum = events.reduce((previousValue, currentValue) => {
-      if (currentValue >= 0 && currentValue <= 3000) {
+      if (currentValue >= 0 && currentValue < 3000) {
         return previousValue + currentValue;
       } else {
         return previousValue;
@@ -72,7 +72,7 @@ export const bookingsStatistics = async (parent, args, { req }, info) => {
     }, 0);
 
     const mediumPriceSum = events.reduce((previousValue, currentValue) => {
-      if (currentValue >= 3000 && currentValue <= 8000) {
+      if (currentValue >= 3000 && currentValue < 8000) {
         return previousValue + currentValue;
       } else {
         return previousValue;
@@ -80,7 +80,7 @@ export const bookingsStatistics = async (parent, args, { req }, info) => {
     }, 0);
 
     const highPriceSum = events.reduce((previousValue, currentValue) => {
-      if (currentValue >= 8000 && currentValue <= 10000) {
+      if (currentValue >= 8000 && currentValue < 10000) {
         return previousValue + currentValue;
       } else {
         return previousValue;
