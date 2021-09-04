@@ -31,7 +31,7 @@ const typeDefs = gql`
     id: ID!
   }
 
-  type BookingStatistics {
+  type BookingsStatistics {
     lowPriceSum: Float!
     mediumPriceSum: Float!
     highPriceSum: Float!
@@ -43,7 +43,7 @@ const typeDefs = gql`
     events: [Event]!
     userEvents: [Event]!
     userBookings: [Booking]!
-    bookingsStatistics: BookingStatistics!
+    bookingsStatistics: BookingsStatistics!
   }
 
   type Mutation {
