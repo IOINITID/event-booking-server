@@ -1,8 +1,5 @@
 {
   "env": {
-    "MONGO_USER": "ioinitid",
-    "MONGO_PASSWORD": "287zS8dYk0ZiKrYx",
-    "MONGO_DB": "event-booking",
     "PORT": 8080
   }
 }

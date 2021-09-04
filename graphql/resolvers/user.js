@@ -1,9 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../../models/user.js";
-import Event from "../../models/event.js";
-import Booking from "../../models/booking.js";
-import { dateToString } from "../../helpers/index.js";
 
 export const authorization = async (
   parent,
@@ -26,8 +23,7 @@ export const authorization = async (
 
     const token = jwt.sign(
       { id: user.id, email: user.email },
-      "somesupersecretkey",
-      { expiresIn: "1h" }
+      "somesupersecretkey"
     );
 
     return { id: user.id, token };
@@ -57,8 +53,7 @@ export const registration = async (
 
     const token = jwt.sign(
       { id: user.id, email: user.email },
-      "somesupersecretkey",
-      { expiresIn: "1h" }
+      "somesupersecretkey"
     );
 
     return { id: user.id, token };
