@@ -2,7 +2,7 @@
   "name": "event-booking-server",
   "version": "1.0.0",
   "private": true,
-  "description": "Event Booking server application.",
+  "description": "Event Booking server - a GraphQL server API for Event Booking application.",
   "main": "./index.js",
   "type": "module",
   "scripts": {
@@ -20,6 +20,8 @@
     "GraphQL",
     "Apollo-Server",
     "Mongodb",
+    "Mongoose",
+    "Cloudinary",
     "JWT",
     "Events",
     "Bookings"
