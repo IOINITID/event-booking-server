@@ -6,6 +6,12 @@ API: 🖥️ https://ioinitid-event-booking-server.herokuapp.com/graphql
 
 ---
 
+**Preview**
+
+![Preview](preview.jpg 'Preview')
+
+---
+
 Made with ❤️
 
 ---
