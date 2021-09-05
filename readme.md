@@ -1,17 +1,17 @@
-Название: **Event Booking server**
+Project name: **Event Booking server**
 
 ---
 
-Страница API: 🖥️ https://ioinitid-event-booking.herokuapp.com/graphql
+API: 🖥️ https://ioinitid-event-booking-server.herokuapp.com/graphql
 
 ---
 
-Сделано с ❤️
+Made with ❤️
 
 ---
 
-**Папка с исходными файлами — `graphql/`.**
+**Source files folder — `graphql/`.**
 
-- [contributing.md](contributing.md) — руководство по сборке проекта.
+- [contributing.md](contributing.md) — project build guide.
 
 ---

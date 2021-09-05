@@ -1,18 +1,29 @@
 {
   "name": "event-booking-server",
   "version": "1.0.0",
+  "private": true,
   "description": "Event Booking server application.",
   "main": "./index.js",
   "type": "module",
-  "private": true,
   "scripts": {
     "start": "node index.js",
-    "develop": "nodemon index.js"
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/IOINITID/event-booking-server.git"
   },
+  "keywords": [
+    "JavaScript",
+    "Node",
+    "Express",
+    "GraphQL",
+    "Apollo-Server",
+    "Mongodb",
+    "JWT",
+    "Events",
+    "Bookings"
+  ],
   "author": "Igor Orishchenko <ioinitid@gmail.com>",
   "license": "MIT",
   "bugs": {

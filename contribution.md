@@ -1,13 +1,13 @@
-# Руководство по сборке проекта
+**Project build guide:**
 
-#### 1. Склонируйте репозиторий проекта к себе на компьютер
+- Clone the project repository to your computer.
 
-#### 2. Откройте директорию с проектом
+- You must have Node.js installed.
 
-#### 3. У вас должен быть установлен Node.js
+- Enter the command in the console ```npm install``` or ```yarn install``` and wait for all packages to be installed.
 
-#### 4. Введите команду в консоле npm install и дождитесь установки всех пакетов
+- Enter the command ```npm run dev``` or ```yarn run dev``` to start the project locally in development mode.
 
-#### 5. Введите команду npm run start для сборки проекта.
+- Enter the command ```npm run start``` or ```yarn run start``` to start the project locally.
 
-**Есть вопрос? Пиши на IOINITID@gmail.com**
+**Have a question? Write to IOINITID@gmail.com**
