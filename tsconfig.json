@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "rootDir": "./",
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "strict": true,
+    "sourceMap": true
+  },
+  "include": [
+    "./graphql/**/*",
+    "./helpers/**/*",
+    "./middleware/**/*",
+    "./models/**/*"
+  ],
+  "exclude": ["node_modules"]
+}

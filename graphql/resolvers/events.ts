@@ -1,6 +1,6 @@
-import Event from "../../models/event.js";
+import Event from "../../models/event";
 import { v2 as cloudinary } from "cloudinary";
-import { dateToString } from "../../helpers/index.js";
+import { dateToString } from "../../helpers/index";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -11,11 +11,16 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-export const events = async (parent, args, context, info) => {
+export const events = async (
+  parent: any,
+  args: any,
+  context: any,
+  info: any
+) => {
   try {
     const events = await Event.find().sort({ createdAt: -1 });
 
-    return events.map((event) => ({
+    return events.map((event: any) => ({
       id: event._id,
       title: event.title,
       description: event.description,
@@ -31,10 +36,10 @@ export const events = async (parent, args, context, info) => {
 };
 
 export const createEvent = async (
-  parent,
-  { title, description, price, date, location, image },
-  { req },
-  info
+  parent: any,
+  { title, description, price, date, location, image }: any,
+  { req }: any,
+  info: any
 ) => {
   if (!req.isAuth) {
     throw new Error("Необходимо авторизоваться.");
@@ -46,7 +51,7 @@ export const createEvent = async (
       eager: { quality: "75", fetch_format: "jpg" },
     });
 
-    const event = new Event({
+    const event: any = new Event({
       title,
       description,
       price,
@@ -73,7 +78,12 @@ export const createEvent = async (
   }
 };
 
-export const deleteEvent = async (parent, { eventId }, { req }, info) => {
+export const deleteEvent = async (
+  parent: any,
+  { eventId }: any,
+  { req }: any,
+  info: any
+) => {
   if (!req.isAuth) {
     throw new Error("Необходимо авторизоваться.");
   }
@@ -87,7 +97,12 @@ export const deleteEvent = async (parent, { eventId }, { req }, info) => {
   }
 };
 
-export const userEvents = async (parent, args, { req }, info) => {
+export const userEvents = async (
+  parent: any,
+  args: any,
+  { req }: any,
+  info: any
+) => {
   if (!req.isAuth) {
     throw new Error("Необходимо авторизоваться.");
   }
@@ -97,7 +112,7 @@ export const userEvents = async (parent, args, { req }, info) => {
       createdAt: -1,
     });
 
-    return events.map((event) => ({
+    return events.map((event: any) => ({
       id: event._id,
       title: event.title,
       description: event.description,

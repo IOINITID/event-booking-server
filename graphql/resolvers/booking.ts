@@ -1,15 +1,20 @@
-import Event from "../../models/event.js";
-import Booking from "../../models/booking.js";
-import { dateToString } from "../../helpers/index.js";
+import Event from "../../models/event";
+import Booking from "../../models/booking";
+import { dateToString } from "../../helpers";
 
-export const bookEvent = async (parent, { eventId }, { req }, info) => {
+export const bookEvent = async (
+  parent: any,
+  { eventId }: any,
+  { req }: any,
+  info: any
+) => {
   if (!req.isAuth) {
     throw new Error("Необходима авторизация.");
   }
 
   try {
     const fetchedEvent = await Event.findOne({ _id: eventId });
-    const booking = new Booking({ event: fetchedEvent, user: req.userId });
+    const booking: any = new Booking({ event: fetchedEvent, user: req.userId });
 
     await booking.save();
 
@@ -32,7 +37,12 @@ export const bookEvent = async (parent, { eventId }, { req }, info) => {
   }
 };
 
-export const cancelBooking = async (parent, { bookingId }, { req }, info) => {
+export const cancelBooking = async (
+  parent: any,
+  { bookingId }: any,
+  { req }: any,
+  info: any
+) => {
   if (!req.isAuth) {
     throw new Error("Необходима авторизация.");
   }
@@ -46,7 +56,12 @@ export const cancelBooking = async (parent, { bookingId }, { req }, info) => {
   }
 };
 
-export const userBookings = async (parent, args, { req }, info) => {
+export const userBookings = async (
+  parent: any,
+  args: any,
+  { req }: any,
+  info: any
+) => {
   if (!req.isAuth) {
     throw new Error("Необходимо авторизоваться.");
   }
@@ -56,7 +71,7 @@ export const userBookings = async (parent, args, { req }, info) => {
       createdAt: -1,
     });
 
-    return bookings.map(async (booking) => {
+    return bookings.map(async (booking: any) => {
       const event = await Event.findOne({ _id: booking.event });
 
       return {
@@ -79,7 +94,12 @@ export const userBookings = async (parent, args, { req }, info) => {
   }
 };
 
-export const bookingsStatistics = async (parent, args, { req }, info) => {
+export const bookingsStatistics = async (
+  parent: any,
+  args: any,
+  { req }: any,
+  info: any
+) => {
   if (!req.isAuth) {
     throw new Error("Необходима авторизация.");
   }
@@ -90,43 +110,55 @@ export const bookingsStatistics = async (parent, args, { req }, info) => {
     });
 
     const events = await Promise.all(
-      bookings.map(async (value) => {
+      bookings.map(async (value: any) => {
         const { price } = await Event.findById(value.event);
         return price;
       })
     );
 
-    const lowPriceSum = events.reduce((previousValue, currentValue) => {
-      if (currentValue >= 0 && currentValue < 3000) {
-        return previousValue + currentValue;
-      } else {
-        return previousValue;
-      }
-    }, 0);
+    const lowPriceSum = events.reduce(
+      (previousValue: any, currentValue: any) => {
+        if (currentValue >= 0 && currentValue < 3000) {
+          return previousValue + currentValue;
+        } else {
+          return previousValue;
+        }
+      },
+      0
+    );
 
-    const mediumPriceSum = events.reduce((previousValue, currentValue) => {
-      if (currentValue >= 3000 && currentValue < 8000) {
-        return previousValue + currentValue;
-      } else {
-        return previousValue;
-      }
-    }, 0);
+    const mediumPriceSum = events.reduce(
+      (previousValue: any, currentValue: any) => {
+        if (currentValue >= 3000 && currentValue < 8000) {
+          return previousValue + currentValue;
+        } else {
+          return previousValue;
+        }
+      },
+      0
+    );
 
-    const highPriceSum = events.reduce((previousValue, currentValue) => {
-      if (currentValue >= 8000 && currentValue < 10000) {
-        return previousValue + currentValue;
-      } else {
-        return previousValue;
-      }
-    }, 0);
+    const highPriceSum = events.reduce(
+      (previousValue: any, currentValue: any) => {
+        if (currentValue >= 8000 && currentValue < 10000) {
+          return previousValue + currentValue;
+        } else {
+          return previousValue;
+        }
+      },
+      0
+    );
 
-    const veryHighPriceSum = events.reduce((previousValue, currentValue) => {
-      if (currentValue >= 10000) {
-        return previousValue + currentValue;
-      } else {
-        return previousValue;
-      }
-    }, 0);
+    const veryHighPriceSum = events.reduce(
+      (previousValue: any, currentValue: any) => {
+        if (currentValue >= 10000) {
+          return previousValue + currentValue;
+        } else {
+          return previousValue;
+        }
+      },
+      0
+    );
 
     return { lowPriceSum, mediumPriceSum, highPriceSum, veryHighPriceSum };
   } catch (error) {
@@ -134,7 +166,12 @@ export const bookingsStatistics = async (parent, args, { req }, info) => {
   }
 };
 
-export const bookingsControlsCounts = async (parent, args, { req }, info) => {
+export const bookingsControlsCounts = async (
+  parent: any,
+  args: any,
+  { req }: any,
+  info: any
+) => {
   if (!req.isAuth) {
     throw new Error("Необходима авторизация.");
   }

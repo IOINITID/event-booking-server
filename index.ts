@@ -8,9 +8,9 @@ dotenv.config();
 
 const PORT = process.env.PORT || 8080;
 
-import { typeDefs } from "./graphql/schema/index.js";
-import { resolvers } from "./graphql/resolvers/index.js";
-import { isAuth } from "./middleware/is-auth.js";
+import { typeDefs } from "./graphql/schema";
+import { resolvers } from "./graphql/resolvers";
+import { isAuth } from "./middleware/is-auth";
 
 const startApolloServer = async () => {
   const app = express();
