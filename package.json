@@ -15,7 +15,9 @@
   },
   "keywords": [
     "JavaScript",
+    "TypeScript",
     "Node",
+    "TS-Node",
     "Express",
     "GraphQL",
     "Apollo-Server",
