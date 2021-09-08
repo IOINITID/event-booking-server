@@ -3,17 +3,12 @@
     "target": "ESNext",
     "module": "CommonJS",
     "moduleResolution": "Node",
-    "rootDir": "./",
+    "rootDir": "./src",
     "outDir": "./dist",
     "esModuleInterop": true,
     "strict": true,
     "sourceMap": true
   },
-  "include": [
-    "./graphql/**/*",
-    "./helpers/**/*",
-    "./middleware/**/*",
-    "./models/**/*"
-  ],
+  "include": ["./src/**/*"],
   "exclude": ["node_modules"]
 }
