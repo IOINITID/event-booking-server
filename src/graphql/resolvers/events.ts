@@ -1,7 +1,7 @@
-import Event from "../../models/event";
-import { v2 as cloudinary } from "cloudinary";
-import { dateToString } from "../../helpers/index";
-import dotenv from "dotenv";
+import Event from '../../models/event';
+import { v2 as cloudinary } from 'cloudinary';
+import { dateToString } from '../../helpers/index';
+import dotenv from 'dotenv';
 
 dotenv.config();
 
@@ -11,12 +11,7 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-export const events = async (
-  parent: any,
-  args: any,
-  context: any,
-  info: any
-) => {
+export const events = async (parent: any, args: any, context: any, info: any) => {
   try {
     const events = await Event.find().sort({ createdAt: -1 });
 
@@ -42,13 +37,13 @@ export const createEvent = async (
   info: any
 ) => {
   if (!req.isAuth) {
-    throw new Error("Необходимо авторизоваться.");
+    throw new Error('Необходимо авторизоваться.');
   }
 
   try {
     const uploadedResponse = await cloudinary.uploader.upload(image, {
-      folder: "event-booking",
-      eager: { quality: "75", fetch_format: "jpg" },
+      folder: 'event-booking',
+      eager: { quality: '75', fetch_format: 'jpg' },
     });
 
     const event: any = new Event({
@@ -78,14 +73,9 @@ export const createEvent = async (
   }
 };
 
-export const deleteEvent = async (
-  parent: any,
-  { eventId }: any,
-  { req }: any,
-  info: any
-) => {
+export const deleteEvent = async (parent: any, { eventId }: any, { req }: any, info: any) => {
   if (!req.isAuth) {
-    throw new Error("Необходимо авторизоваться.");
+    throw new Error('Необходимо авторизоваться.');
   }
 
   try {
@@ -97,14 +87,9 @@ export const deleteEvent = async (
   }
 };
 
-export const userEvents = async (
-  parent: any,
-  args: any,
-  { req }: any,
-  info: any
-) => {
+export const userEvents = async (parent: any, args: any, { req }: any, info: any) => {
   if (!req.isAuth) {
-    throw new Error("Необходимо авторизоваться.");
+    throw new Error('Необходимо авторизоваться.');
   }
 
   try {

@@ -1,16 +1,15 @@
-import express from "express";
-import { ApolloServer } from "apollo-server-express";
-import mongoose from "mongoose";
-import cors from "cors";
-import dotenv from "dotenv";
+import express from 'express';
+import { ApolloServer } from 'apollo-server-express';
+import mongoose from 'mongoose';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import { typeDefs } from './graphql/schema';
+import { resolvers } from './graphql/resolvers';
+import { isAuth } from './middleware/is-auth';
 
 dotenv.config();
 
-const PORT = process.env.PORT || 8080;
-
-import { typeDefs } from "./graphql/schema";
-import { resolvers } from "./graphql/resolvers";
-import { isAuth } from "./middleware/is-auth";
+const PORT: number = Number(process.env.PORT) || 8080;
 
 const startApolloServer = async () => {
   const app = express();
@@ -18,7 +17,9 @@ const startApolloServer = async () => {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: ({ req, res }) => ({ req, res }),
+    context: ({ req, res }) => {
+      return { req, res };
+    },
     playground: true,
     introspection: true,
   });
@@ -27,20 +28,23 @@ const startApolloServer = async () => {
 
   app.use(cors());
 
-  app.use(express.json({ limit: "50mb" }));
+  app.use(express.json({ limit: '50mb' }));
 
-  app.use(express.urlencoded({ limit: "50mb", extended: true }));
+  app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
   app.use(isAuth);
 
-  app.use(express.static("public"));
+  app.use(express.static('public'));
 
   server.applyMiddleware({ app });
 
   mongoose
     .connect(
       `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.qwu0m.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`,
-      { useUnifiedTopology: true, useNewUrlParser: true }
+      {
+        useUnifiedTopology: true,
+        useNewUrlParser: true,
+      }
     )
     .then(() => {
       app.listen(PORT, () => {

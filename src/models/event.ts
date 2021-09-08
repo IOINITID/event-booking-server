@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
 
@@ -30,10 +30,10 @@ const eventSchema = new Schema(
     },
     creator: {
       type: Schema.Types.ObjectId,
-      ref: "User",
+      ref: 'User',
     },
   },
   { timestamps: true }
 );
 
-export default mongoose.model("Event", eventSchema);
+export default mongoose.model('Event', eventSchema);
