@@ -1,8 +1,17 @@
-import mongoose from 'mongoose';
+import { model, ObjectId, Schema } from 'mongoose';
+import { Models } from '../enums';
 
-const { Schema } = mongoose;
+type EventModelType = {
+  title: string;
+  description: string;
+  price: number;
+  date: Date;
+  location: string;
+  image: string;
+  creator?: ObjectId;
+};
 
-const eventSchema = new Schema(
+const eventSchema = new Schema<EventModelType>(
   {
     title: {
       type: String,
@@ -30,10 +39,10 @@ const eventSchema = new Schema(
     },
     creator: {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: Models.User,
     },
   },
   { timestamps: true }
 );
 
-export default mongoose.model('Event', eventSchema);
+export const Event = model<EventModelType>(Models.Event, eventSchema);

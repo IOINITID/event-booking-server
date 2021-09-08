@@ -1,19 +1,23 @@
-import mongoose from 'mongoose';
+import { model, ObjectId, Schema } from 'mongoose';
+import { Models } from '../enums';
 
-const { Schema } = mongoose;
+type BookingModelType = {
+  event?: ObjectId;
+  user?: ObjectId;
+};
 
-const bookingSchema = new Schema(
+const bookingSchema = new Schema<BookingModelType>(
   {
     event: {
       type: Schema.Types.ObjectId,
-      ref: 'Event',
+      ref: Models.Event,
     },
     user: {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: Models.User,
     },
   },
   { timestamps: true }
 );
 
-export default mongoose.model('Booking', bookingSchema);
+export const Booking = model<BookingModelType>(Models.Booking, bookingSchema);

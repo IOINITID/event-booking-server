@@ -1,5 +1,5 @@
-import Event from '../../models/event';
-import Booking from '../../models/booking';
+import { Event } from '../../models/event';
+import { Booking } from '../../models/booking';
 import { dateToString } from '../../helpers';
 
 export const bookEvent = async (parent: any, { eventId }: any, { req }: any, info: any) => {
@@ -38,7 +38,7 @@ export const cancelBooking = async (parent: any, { bookingId }: any, { req }: an
   }
 
   try {
-    const booking = await Booking.findByIdAndDelete(bookingId);
+    const booking: any = await Booking.findByIdAndDelete(bookingId);
 
     return { id: booking._id };
   } catch (error) {
@@ -57,7 +57,7 @@ export const userBookings = async (parent: any, args: any, { req }: any, info: a
     });
 
     return bookings.map(async (booking: any) => {
-      const event = await Event.findOne({ _id: booking.event });
+      const event: any = await Event.findOne({ _id: booking.event });
 
       return {
         id: booking._id,
@@ -91,7 +91,7 @@ export const bookingsStatistics = async (parent: any, args: any, { req }: any, i
 
     const events = await Promise.all(
       bookings.map(async (value: any) => {
-        const { price } = await Event.findById(value.event);
+        const { price }: any = await Event.findById(value.event);
         return price;
       })
     );

@@ -1,4 +1,4 @@
-import Event from '../../models/event';
+import { Event } from '../../models/event';
 import { v2 as cloudinary } from 'cloudinary';
 import { dateToString } from '../../helpers/index';
 import dotenv from 'dotenv';
@@ -79,7 +79,7 @@ export const deleteEvent = async (parent: any, { eventId }: any, { req }: any, i
   }
 
   try {
-    const eventToDelete = await Event.findByIdAndDelete(eventId);
+    const eventToDelete: any = await Event.findByIdAndDelete(eventId);
 
     return { id: eventToDelete._id };
   } catch (error) {

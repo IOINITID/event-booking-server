@@ -1,8 +1,13 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import User from '../../models/user';
+import { User } from '../../models/user';
 
-export const authorization = async (parent: any, { email, password }: any, context: any, info: any) => {
+export const authorization = async (
+  parent: unknown,
+  { email, password }: { email: string; password: string },
+  context: unknown,
+  info: unknown
+) => {
   try {
     const user = await User.findOne({ email });
 
@@ -24,7 +29,12 @@ export const authorization = async (parent: any, { email, password }: any, conte
   }
 };
 
-export const registration = async (parent: any, { email, password }: any, context: any, info: any) => {
+export const registration = async (
+  parent: unknown,
+  { email, password }: { email: string; password: string },
+  context: unknown,
+  info: unknown
+) => {
   try {
     const existingUser = await User.findOne({ email });
 
@@ -34,7 +44,7 @@ export const registration = async (parent: any, { email, password }: any, contex
 
     const hashedPassword = await bcrypt.hash(password, 12);
 
-    const user: any = new User({ email, password: hashedPassword });
+    const user = new User({ email, password: hashedPassword });
 
     await user.save();
 

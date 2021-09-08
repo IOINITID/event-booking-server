@@ -1,8 +1,13 @@
-import mongoose from 'mongoose';
+import { model, ObjectId, Schema } from 'mongoose';
+import { Models } from '../enums';
 
-const { Schema } = mongoose;
+type UserModelType = {
+  email: string;
+  password: string;
+  createdEvents?: ObjectId;
+};
 
-const userSchema = new Schema({
+const userSchema = new Schema<UserModelType>({
   email: {
     type: String,
     required: true,
@@ -14,9 +19,9 @@ const userSchema = new Schema({
   createdEvents: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'Event',
+      ref: Models.Event,
     },
   ],
 });
 
-export default mongoose.model('User', userSchema);
+export const User = model<UserModelType>(Models.User, userSchema);
